@@ -97,4 +97,3 @@ func (p *ProjectOp) Close() error {
 func (p *ProjectOp) Schema() types.Schema {
 	return p.outputSchema
 }
-

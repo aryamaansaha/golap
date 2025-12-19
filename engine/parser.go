@@ -360,4 +360,3 @@ func parseLimit(limit *sqlparser.Limit) (int, error) {
 
 	return 0, fmt.Errorf("LIMIT must be an integer")
 }
-

@@ -422,4 +422,3 @@ func toNumericValue(val interface{}) (float64, bool) {
 		return 0, false
 	}
 }
-

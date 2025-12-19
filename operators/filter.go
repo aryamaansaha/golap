@@ -197,4 +197,3 @@ func AndPredicate(predicates ...Predicate) Predicate {
 		return true
 	}
 }
-

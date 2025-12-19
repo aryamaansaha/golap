@@ -12,10 +12,10 @@ import (
 
 // CSVScan is the storage layer operator that streams rows from a CSV file
 type CSVScan struct {
-	reader     *csv.Reader
-	file       *os.File
-	schema     types.Schema
-	firstRow   []string // buffered first data row (used for type inference, then returned)
+	reader           *csv.Reader
+	file             *os.File
+	schema           types.Schema
+	firstRow         []string // buffered first data row (used for type inference, then returned)
 	firstRowReturned bool
 }
 
@@ -62,10 +62,10 @@ func NewCSVScan(filePath string) (*CSVScan, error) {
 	}
 
 	return &CSVScan{
-		reader:   reader,
-		file:     file,
-		schema:   schema,
-		firstRow: firstRow,
+		reader:           reader,
+		file:             file,
+		schema:           schema,
+		firstRow:         firstRow,
 		firstRowReturned: false,
 	}, nil
 }
@@ -154,4 +154,3 @@ func (s *CSVScan) Close() error {
 func (s *CSVScan) Schema() types.Schema {
 	return s.schema
 }
-

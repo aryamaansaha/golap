@@ -15,8 +15,8 @@ import (
 // ZoneMap stores min/max statistics for integer columns in a CSV file
 // This enables partition pruning: skipping files that can't contain matching rows
 type ZoneMap struct {
-	Filename  string         `json:"filename"`
-	RowCount  int64          `json:"row_count"`
+	Filename  string           `json:"filename"`
+	RowCount  int64            `json:"row_count"`
 	MinValues map[string]int64 `json:"min_values"` // Column name -> min value
 	MaxValues map[string]int64 `json:"max_values"` // Column name -> max value
 }
@@ -213,4 +213,3 @@ func (zm *ZoneMap) PrintSummary() {
 		fmt.Printf("  %s: [%d, %d]\n", col, zm.MinValues[col], zm.MaxValues[col])
 	}
 }
-

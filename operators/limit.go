@@ -73,4 +73,3 @@ func (l *LimitOp) Close() error {
 func (l *LimitOp) Schema() types.Schema {
 	return l.input.Schema()
 }
-

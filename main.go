@@ -135,4 +135,3 @@ func generateZoneMap(csvPath string) {
 	zm.PrintSummary()
 	fmt.Printf("Saved to: %s\n", metadata.ZoneMapPath(csvPath))
 }
-

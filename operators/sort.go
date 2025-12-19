@@ -17,18 +17,18 @@ const DefaultChunkSize = 1000
 // SortOp performs external merge sort for ORDER BY
 type SortOp struct {
 	input       types.Operator
-	columnIndex int    // Column to sort by
-	desc        bool   // Descending order
-	chunkSize   int    // Number of rows per chunk
+	columnIndex int  // Column to sort by
+	desc        bool // Descending order
+	chunkSize   int  // Number of rows per chunk
 	schema      types.Schema
 
 	// State for merge phase
-	prepared   bool
-	tempFiles  []string
-	readers    []*csv.Reader
-	files      []*os.File
-	mergeHeap  *mergeHeap
-	exhausted  bool
+	prepared  bool
+	tempFiles []string
+	readers   []*csv.Reader
+	files     []*os.File
+	mergeHeap *mergeHeap
+	exhausted bool
 }
 
 // NewSortOp creates a new sort operator
@@ -399,4 +399,3 @@ func (h *mergeHeap) compareRows(a, b *types.Row) int {
 		return 0
 	}
 }
-
