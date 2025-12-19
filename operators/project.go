@@ -1,7 +1,7 @@
 package operators
 
 import (
-	"github.com/aryamaan/golap/types"
+	"github.com/aryamaansaha/golap/types"
 )
 
 // ProjectOp projects (selects) specific columns from the input

@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/aryamaan/golap/types"
+	"github.com/aryamaansaha/golap/types"
 )
 
 // ZoneMap stores min/max statistics for integer columns in a CSV file

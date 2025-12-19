@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/aryamaan/golap/operators"
-	"github.com/aryamaan/golap/types"
+	"github.com/aryamaansaha/golap/operators"
+	"github.com/aryamaansaha/golap/types"
 	"github.com/xwb1989/sqlparser"
 )
 

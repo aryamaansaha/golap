@@ -3,7 +3,7 @@ package operators
 import (
 	"fmt"
 
-	"github.com/aryamaan/golap/types"
+	"github.com/aryamaansaha/golap/types"
 )
 
 // Predicate is a function that evaluates whether a row passes the filter

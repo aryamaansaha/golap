@@ -7,7 +7,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/aryamaan/golap/types"
+	"github.com/aryamaansaha/golap/types"
 )
 
 // CSVScan is the storage layer operator that streams rows from a CSV file

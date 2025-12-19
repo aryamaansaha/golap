@@ -5,8 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/aryamaan/golap/engine"
-	"github.com/aryamaan/golap/metadata"
+	"github.com/aryamaansaha/golap/engine"
+	"github.com/aryamaansaha/golap/metadata"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/aryamaan/golap
+module github.com/aryamaansaha/golap
 
 go 1.25.1
 

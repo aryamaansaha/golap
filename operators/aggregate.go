@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/aryamaan/golap/types"
+	"github.com/aryamaansaha/golap/types"
 )
 
 // AggregateExpr represents a single aggregation expression

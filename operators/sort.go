@@ -9,7 +9,7 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/aryamaan/golap/types"
+	"github.com/aryamaansaha/golap/types"
 )
 
 const DefaultChunkSize = 1000
