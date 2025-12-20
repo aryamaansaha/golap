@@ -84,10 +84,41 @@ For `ORDER BY` on large files, it uses **external merge sort** - sorting chunks 
 
 ## Use Case
 
-Query large CSV files (local or S3) without loading them into memory. Ideal for:
+Query large CSV files without loading them into memory. Ideal for:
 - Ad-hoc analysis of large datasets
 - Memory-constrained environments
 - Serverless functions
+
+## Using with Amazon S3
+
+GOLAP currently works with local files. To query S3 data:
+
+**Option 1: Mount S3 as filesystem**
+```bash
+# Using s3fs-fuse
+s3fs mybucket /mnt/s3 -o iam_role=auto
+./golap 'SELECT * FROM `/mnt/s3/data.csv` WHERE amount > 1000'
+```
+
+**Note:** s3fs adds FUSE overhead and doesn't work in serverless environments. For production use, native S3 support is recommended.
+
+**Adding native S3 support:** To contribute native S3 streaming (without s3fs overhead), modify `operators/scan.go`:
+
+```go
+// Current (local file):
+file, err := os.Open(filePath)
+reader := csv.NewReader(file)
+
+// For native S3:
+s3Client := s3.NewFromConfig(cfg)
+obj, err := s3Client.GetObject(ctx, &s3.GetObjectInput{
+    Bucket: aws.String(bucket),
+    Key:    aws.String(key),
+})
+reader := csv.NewReader(obj.Body)
+```
+
+The rest of the engine stays the same - it just needs an `io.Reader`.
 
 ## License
 
