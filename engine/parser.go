@@ -12,7 +12,8 @@ import (
 
 // ParseAndPlan parses a SQL query and builds an operator tree
 // Query Format: SELECT ... FROM "file.csv" WHERE ... ORDER BY ... LIMIT ...
-func ParseAndPlan(sql string) (types.Operator, error) {
+// sortChunkSize controls memory usage for ORDER BY (number of rows per chunk)
+func ParseAndPlan(sql string, sortChunkSize int) (types.Operator, error) {
 	stmt, err := sqlparser.Parse(sql)
 	if err != nil {
 		return nil, fmt.Errorf("SQL parse error: %w", err)
@@ -92,7 +93,7 @@ func ParseAndPlan(sql string) (types.Operator, error) {
 		}
 
 		desc := orderExpr.Direction == sqlparser.DescScr
-		op = operators.NewSortOp(op, colIdx, desc)
+		op = operators.NewSortOpWithChunkSize(op, colIdx, desc, sortChunkSize)
 	}
 
 	// 5. Apply LIMIT

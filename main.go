@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -10,30 +11,36 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 2 {
+	// Parse flags
+	sortChunkSize := flag.Int("sort-chunk-size", 1000, "Number of rows per chunk for external sort (default: 1000)")
+	flag.Parse()
+
+	args := flag.Args()
+
+	if len(args) < 1 {
 		printUsage()
 		os.Exit(1)
 	}
 
-	command := os.Args[1]
+	command := args[0]
 
 	switch command {
 	case "query", "q":
-		if len(os.Args) < 3 {
+		if len(args) < 2 {
 			fmt.Println("Error: SQL query required")
 			fmt.Println("Usage: golap query \"SELECT * FROM data.csv\"")
 			os.Exit(1)
 		}
-		query := os.Args[2]
-		runQuery(query)
+		query := args[1]
+		runQuery(query, *sortChunkSize)
 
 	case "zonemap", "zm":
-		if len(os.Args) < 3 {
+		if len(args) < 2 {
 			fmt.Println("Error: CSV file path required")
 			fmt.Println("Usage: golap zonemap data.csv")
 			os.Exit(1)
 		}
-		csvPath := os.Args[2]
+		csvPath := args[1]
 		generateZoneMap(csvPath)
 
 	case "help", "-h", "--help":
@@ -41,8 +48,8 @@ func main() {
 
 	default:
 		// Assume it's a direct SQL query
-		query := strings.Join(os.Args[1:], " ")
-		runQuery(query)
+		query := strings.Join(args, " ")
+		runQuery(query, *sortChunkSize)
 	}
 }
 
@@ -70,14 +77,18 @@ Supported SQL Features:
   - GROUP BY column
   - Aggregates: COUNT, SUM, MIN, MAX, AVG
 
+Flags:
+  -sort-chunk-size=N    Number of rows per chunk for ORDER BY (default: 1000)
+                        Larger values use more memory but sort faster
+
 Notes:
   - CSV files must have a header row
   - Column types are auto-inferred (Int, Float, String)
   - Large datasets are sorted using external merge sort (disk-based)`)
 }
 
-func runQuery(query string) {
-	op, err := engine.ParseAndPlan(query)
+func runQuery(query string, sortChunkSize int) {
+	op, err := engine.ParseAndPlan(query, sortChunkSize)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
