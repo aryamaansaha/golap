@@ -29,7 +29,7 @@ GOLAP uses streaming, it processes one row at a time, using only very little mem
 ## Installation
 
 ```bash
-git clone https://github.com/aryamaan/golap.git
+git clone https://github.com/aryamaansaha/golap.git
 cd golap
 go build -o golap .
 ```
